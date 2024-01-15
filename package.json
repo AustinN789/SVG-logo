@@ -1,0 +1,30 @@
+{
+  "name": "svg_logo_maker-oop",
+  "version": "1.0.0",
+  "description": "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Terence-A/SVG_Logo_Maker-OOP.git"
+  },
+  "author": "Terence Arseneault",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Terence-A/SVG_Logo_Maker-OOP/issues"
+  },
+  "homepage": "https://github.com/Terence-A/SVG_Logo_Maker-OOP#readme",
+  "dependencies": {
+    "inquirer": "^8.2.5"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "directories": {
+    "example": "examples",
+    "lib": "lib"
+  }
+}
