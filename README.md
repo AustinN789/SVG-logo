@@ -1,7 +1,5 @@
 # SVG Logo Maker
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 ## Description
 
 AS a freelance web developer
@@ -37,7 +35,7 @@ Run command " npm test" this will test 3 shapes with colors and give result thro
 ![square](https://github.com/AustinN789/SVG-logo/blob/1a9ef535ff931289286ef26efe4150d2cffd85d2/examples/square.png)
 ![Circle](https://github.com/AustinN789/SVG-logo/blob/1a9ef535ff931289286ef26efe4150d2cffd85d2/examples/Circle.png)
 ![Triangle](https://github.com/AustinN789/SVG-logo/blob/1a9ef535ff931289286ef26efe4150d2cffd85d2/examples/Triangle.png)
-![Test]()
+![Test](https://github.com/AustinN789/SVG-logo/blob/1651503a6b6dedb65c2186195ce85e01cb629e90/examples/test.png)
 ## Video Walkthrough
 
 https://drive.google.com/file/d/1jnPdD_HsvNx9o3O9o2tgHvrkyQmMeUH_/view
