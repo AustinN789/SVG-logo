@@ -21,9 +21,9 @@
 
 ## Screenshots
 ### Results from running App: 
-![square](examples\square.png)
-![Circle](examples\Circle.png)
-![Triangle](examples\Triangle.png)
+![square](https://github.com/AustinN789/SVG-logo/blob/1d9e5508ce4693192ebd57aedaa6dfdf13a46121/examples/square.png)
+![Circle](https://github.com/AustinN789/SVG-logo/blob/1d9e5508ce4693192ebd57aedaa6dfdf13a46121/examples/Circle.png)
+![Triangle](https://github.com/AustinN789/SVG-logo/blob/1d9e5508ce4693192ebd57aedaa6dfdf13a46121/examples/Triangle.png)
 
 ## Video Walkthrough
 
