@@ -1,106 +1,82 @@
-// Using inquirer dependency
+// Importing required modules
 const inquirer = require("inquirer");
-
-// Using file system dependency
 const fs = require("fs");
+const { Circle, Triangle, Square } = require("./lib/shapes");
 
-// Import classes from .lib
+/**
+ * Creates SVG content based on the provided parameters.
+ * @param {string} shapeType - The type of shape (e.g., Circle, Triangle, Square).
+ * @param {string} shapeColor - The color of the shape.
+ * @param {string} textColor - The color of the text.
+ * @param {string} logoText - The text to display in the logo.
+ * @returns {string} The SVG content string.
+ */
+function createSvgContent(shapeType, shapeColor, textColor, logoText) {
+  // Dynamically create an instance of the shape class based on shapeType
+  const shape = new {
+    Circle,
+    Triangle,
+    Square
+  }[shapeType](shapeColor);
 
-const { Triangle, Square, Circle, Shape } = require("./lib/shapes");
+  // Construct and return the SVG content
+  return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+            ${shape.render(shapeColor)}
+            <text x="150" y="130" text-anchor="middle" font-size="60" fill="${textColor}">${logoText}</text>
+          </svg>`;
+}
 
-//Function to write svg using answers
-function writeToFile(fileName, answers) {
-  let svg = "";
-  svg = `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">`;
-  //   svg += `${answers.logoShape}`;
-
-  let chosenShape = "";
-  if (answers.logoShape === "Circle") {
-    chosenShape = new Circle(answers.shapeColor);
-    svg += chosenShape.render(answers.shapeColor);
-  }
-  if (answers.logoShape === "Triangle") {
-    chosenShape = new Triangle(answers.shapeColor);
-    svg += chosenShape.render(answers.shapeColor);
-  }
-  if (answers.logoShape === "Square") {
-    chosenShape = new Square(answers.shapeColor);
-    svg += chosenShape.render(answers.shapeColor);
-  }
-  svg += `<text x="150" y="130" text-anchor="middle" font-size="60" fill="${answers.textColor}">${answers.logoText}</text> 
-  </svg>`;
-
-  fs.writeFile(fileName, svg, function (err) {
+/**
+ * Writes the SVG content to a file.
+ * @param {string} fileName - The name of the file to write to.
+ * @param {string} svgContent - The SVG content to write.
+ */
+function writeSvgToFile(fileName, svgContent) {
+  fs.writeFile(fileName, svgContent, err => {
     if (err) {
-      return console.log(err);
+      console.error(err); // Log an error if the file write fails
+      return;
     }
-    console.log("Generated logo.svg");
+    console.log("Generated logo.svg"); // Log success message
   });
 }
 
-// inquirer
-//   - prompt for text: can enter up to 3 characters
-//   - text color (color keyword or a hexadecimal number)
-//   - prompt a shape from: circle, triangle, square
-//   - shape color (color keyword or hexadecimal number)
+/**
+ * Prompts the user for input and processes the responses.
+ */
+function promptUserInput() {
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "logoText",
+      message: "Enter Text for the logo (Up to 3 characters):",
+      validate: input => input.length <= 3 || "Maximum 3 characters allowed!" // Validates the input length
+    },
+    {
+      type: "input",
+      name: "textColor",
+      message: "Enter text color (Color keyword or hexadecimal number):",
+      validate: input => !!input || "A color is required!" // Ensures a color is entered
+    },
+    {
+      type: "list",
+      name: "logoShape",
+      message: "Choose a shape for the logo:",
+      choices: ["Circle", "Triangle", "Square"] // Offers a choice of shapes
+    },
+    {
+      type: "input",
+      name: "shapeColor",
+      message: "Enter shape color (Color keyword or hexadecimal number):",
+      validate: input => !!input || "A color is required!" // Ensures a color is entered
+    }
+  ]).then(answers => {
+    // Create SVG content from user responses
+    const svgContent = createSvgContent(answers.logoShape, answers.shapeColor, answers.textColor, answers.logoText);
+    // Write the SVG content to a file
+    writeSvgToFile("logo.svg", svgContent);
+  });
+}
 
-promptUser = () => {
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        name: "logoText",
-        message:
-          "Enter Text that you would like to appear inside logo. (No more than 3 characters!)",
-        validate: (input) => {
-          if (input.length <= 3) {
-            return true;
-          } else {
-            console.log(" Sorry, please try again! ");
-            return false;
-          }
-        },
-      },
-      {
-        type: "input",
-        name: "textColor",
-        message:
-          "Enter a color you would like the text to be. (Color keyword or hexadecimal number!)",
-        validate: (textColor) => {
-          if (textColor) {
-            return true;
-          } else {
-            console.log("No color picked, please enter a color!");
-            return false;
-          }
-        },
-      },
-      {
-        type: "list",
-        name: "logoShape",
-        message: "What shape would you like your logo to be (Choose one)",
-        choices: ["Circle", "Triangle", "Square"],
-      },
-      {
-        type: "input",
-        name: "shapeColor",
-        message:
-          "what color would you like the shape to be? (Color keyword or hexadecimal number!",
-        validate: (shapeColor) => {
-          if (shapeColor) {
-            return true;
-          } else {
-            console.log("No color picked, please enter a color!");
-          }
-        },
-      },
-    ])
-    .then((answers) => {
-      writeToFile("logo.svg", answers);
-    });
-};
-
-// -- when opened (logo.svg) file in browser shown 300*200 pixel image that matches criteria
-
-// Render application
-promptUser();
+// Initialize the application
+promptUserInput();
